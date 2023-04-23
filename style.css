@@ -1,0 +1,28 @@
+h1, td, p {
+    text-align: center;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+td {
+    height: 30px;
+    width: 30px;
+}
+
+.centrado {
+    align-items: center;
+}
+
+.verde-claro {
+    background-color: greenyellow;
+}
+
+.verde-oscuro {
+    background-color: green;
+}
