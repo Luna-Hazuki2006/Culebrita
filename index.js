@@ -32,6 +32,7 @@ document.addEventListener("keydown", function(evento) {
         default:
             break;
     }
+    juego()
 })
 
 function Llenar_tabla() {
@@ -86,10 +87,10 @@ function juego() {
                 id[1]--
                 break
             case "n":
-                id[0]++
+                id[0]--
                 break
             case "s":
-                id[0]--
+                id[0]++
                 break
             default:
                 break;
@@ -99,9 +100,6 @@ function juego() {
         if (celda) {
             celda.innerText = "🐍"
         } else break
-        if (confirm("¿Quieres cambiar de dirección?")) {
-            alert("ok")
-        }
     } while (id[0] <= largo && id[0] >= 1 && id[1] <= ancho && id[1] >= 1);
     alert("se acabó")
 }
