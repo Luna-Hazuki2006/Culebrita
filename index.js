@@ -1,5 +1,6 @@
 let ancho = 17;
 let largo = 15;
+let manzanas = 0;
 
 let culebra = {
     cabeza: "", 
@@ -11,32 +12,32 @@ const direcciones = [
     "n", "s", "o", "e"
 ]
 
-document.addEventListener("keydown", function(evento) {
+function teclear(evento) {
     switch (evento.code) {
         case "ArrowUp":
-            alert("vas arriba")
             culebra.direccion = direcciones[0]
             break;
         case "ArrowDown":
-            alert('vas abajo')
             culebra.direccion = direcciones[1]
             break;
         case "ArrowLeft":
-            alert('vas a la izquierda')
             culebra.direccion = direcciones[2]
             break;
         case "ArrowRight":
-            alert("vas a la derecha")
             culebra.direccion = direcciones[3]
             break;
         default:
             break;
     }
     juego()
-})
+}
 
-function Llenar_tabla() {
+function LlenarTabla() {
+    document.addEventListener("keydown", teclear)
     const tabla = document.getElementById("tabla")
+    manzanas = 0
+    let manzanar = document.getElementById("manzanas")
+    manzanar.innerText = "Manzanas comidas: " + manzanas
     let interno = ""
     let id = ""
     let clase = ""
@@ -62,11 +63,17 @@ function random(numero) {
 }
 
 function darManzanas() {
-    let i = random(largo)
-    let j = random(ancho)
-    let id = i + "-" + j
-    let celda = document.getElementById(id)
-    celda.innerText = "🍎"
+    do {
+        let i = random(largo)
+        let j = random(ancho)
+        let id = i + "-" + j
+        let celda = document.getElementById(id)
+        if (celda.innerText == "🐍") {
+            continue
+        }
+        celda.innerText = "🍎"
+        break
+    } while (true);
 }
 
 function ubicarSerpiente() {
@@ -77,32 +84,37 @@ function ubicarSerpiente() {
 
 function juego() {
     let id = culebra.cabeza.split("-")
-    do {
-        id = culebra.cabeza.split("-")
-        switch (culebra.direccion) {
-            case "e":
-                id[1]++
-                break;
-            case "o":
-                id[1]--
-                break
-            case "n":
-                id[0]--
-                break
-            case "s":
-                id[0]++
-                break
-            default:
-                break;
+    switch (culebra.direccion) {
+        case "e":
+            id[1]++
+            break;
+        case "o":
+            id[1]--
+            break
+        case "n":
+            id[0]--
+            break
+        case "s":
+            id[0]++
+            break
+        default:
+            break;
+    }
+    culebra.cabeza = id[0] + "-" + id[1]
+    let celda = document.getElementById(culebra.cabeza)
+    if (celda) {
+        if (celda.innerText == "🍎") {
+            darManzanas()
+            manzanas++
+            let manzanar = document.getElementById("manzanas")
+            manzanar.innerText = "Manzanas comidas: " + manzanas
         }
-        culebra.cabeza = id[0] + "-" + id[1]
-        let celda = document.getElementById(culebra.cabeza)
-        if (celda) {
-            celda.innerText = "🐍"
-        } else break
-    } while (id[0] <= largo && id[0] >= 1 && id[1] <= ancho && id[1] >= 1);
-    alert("se acabó")
+        celda.innerText = "🐍"
+    } else {
+        alert("¡Oh no! ¡Perdiste!")
+        document.removeEventListener("keydown", teclear)
+    }
 }
 
-Llenar_tabla()
+LlenarTabla()
 // juego()
