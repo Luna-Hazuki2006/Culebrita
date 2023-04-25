@@ -70,7 +70,10 @@ function darManzanas() {
         let j = random(ancho)
         let id = i + "-" + j
         let celda = document.getElementById(id)
-        if (celda.innerText == "🐍") {
+        if (celda.innerText == "🐍" || celda.innerText == '🥒') {
+            continue
+        }
+        if (!celda) {
             continue
         }
         celda.innerText = "🍎"
@@ -79,13 +82,23 @@ function darManzanas() {
 }
 
 function ubicarSerpiente() {
+    quitarSerpientes()
     let id = culebra.cabeza
     let celda = document.getElementById(id)
     celda.innerText = "🐍"
     for (let i = 0; i < culebra.cola.length; i++) {
         console.log(culebra.cola[i]);
         celda = document.getElementById(culebra.cola[i])
-        celda.innerText = "🐍"
+        celda.innerText = "🥒"
+    }
+}
+
+function quitarSerpientes() {
+    casillas = document.getElementsByTagName('td')
+    for (const lugar of casillas) {
+        if (lugar.innerText != '🍎') {
+            lugar.innerText = ''
+        }
     }
 }
 
@@ -93,7 +106,7 @@ function juego() {
     let original = culebra.cabeza
     let anterior = document.getElementById(original)
     anterior.innerText = ""
-    if (manzanas > 1) {
+    if (manzanas >= 1) {
         culebra.cola = [original].concat(culebra.cola)
     }
     while (culebra.cola.length > manzanas) {
@@ -120,12 +133,16 @@ function juego() {
     culebra.cabeza = id[0] + "-" + id[1]
     let celda = document.getElementById(culebra.cabeza)
     if (celda) {
+        if (celda.innerText == '🥒') {
+            alert("¡Oh no! ¡Perdiste!")
+            document.removeEventListener("keydown", teclear)
+            return
+        }
         if (celda.innerText == "🍎") {
             darManzanas()
             manzanas++
             let manzanar = document.getElementById("manzanas")
             manzanar.innerText = "Manzanas comidas: " + manzanas
-            
         }
         ubicarSerpiente()
     } else {
