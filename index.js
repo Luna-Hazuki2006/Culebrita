@@ -149,6 +149,8 @@ function juego() {
             manzanas++
             let manzanar = document.getElementById("manzanas")
             manzanar.innerText = "Manzanas comidas: " + manzanas
+            let comer = new Audio("assets/comiendo.mp3")
+            comer.play()
         }
         ubicarSerpiente()
     } else {
