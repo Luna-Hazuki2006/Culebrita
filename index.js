@@ -27,6 +27,7 @@ function teclear(evento) {
             culebra.direccion = direcciones[3]
             break;
         default:
+            culebra.direccion = "0"
             break;
     }
     juego()
@@ -54,6 +55,7 @@ function LlenarTabla() {
     }
     tabla.innerHTML = interno
     culebra.cabeza = "8-4"
+    culebra.cola = []
     ubicarSerpiente()
     darManzanas()
 }
@@ -80,9 +82,24 @@ function ubicarSerpiente() {
     let id = culebra.cabeza
     let celda = document.getElementById(id)
     celda.innerText = "🐍"
+    for (let i = 0; i < culebra.cola.length; i++) {
+        console.log(culebra.cola[i]);
+        celda = document.getElementById(culebra.cola[i])
+        celda.innerText = "🐍"
+    }
 }
 
 function juego() {
+    let original = culebra.cabeza
+    let anterior = document.getElementById(original)
+    anterior.innerText = ""
+    if (manzanas > 1) {
+        culebra.cola = [original].concat(culebra.cola)
+    }
+    while (culebra.cola.length > manzanas) {
+        culebra.cola.pop()
+    }
+    console.log(culebra.cola);
     let id = culebra.cabeza.split("-")
     switch (culebra.direccion) {
         case "e":
@@ -108,8 +125,9 @@ function juego() {
             manzanas++
             let manzanar = document.getElementById("manzanas")
             manzanar.innerText = "Manzanas comidas: " + manzanas
+            
         }
-        celda.innerText = "🐍"
+        ubicarSerpiente()
     } else {
         alert("¡Oh no! ¡Perdiste!")
         document.removeEventListener("keydown", teclear)
