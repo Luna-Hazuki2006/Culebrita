@@ -1,6 +1,7 @@
 let ancho = 17;
 let largo = 15;
 let manzanas = 0;
+let mejor = 0
 
 let culebra = {
     cabeza: "", 
@@ -136,6 +137,11 @@ function juego() {
         if (celda.innerText == '🥒') {
             alert("¡Oh no! ¡Perdiste!")
             document.removeEventListener("keydown", teclear)
+            if (manzanas > mejor) {
+                mejor = manzanas
+                let racha = document.getElementById('mejor')
+                racha.innerText = 'Mejor racha de manzanas: ' + mejor
+            }
             return
         }
         if (celda.innerText == "🍎") {
@@ -148,6 +154,11 @@ function juego() {
     } else {
         alert("¡Oh no! ¡Perdiste!")
         document.removeEventListener("keydown", teclear)
+        if (manzanas > mejor) {
+            mejor = manzanas
+            let racha = document.getElementById('mejor')
+            racha.innerText = 'Mejor racha de manzanas: ' + mejor
+        }
     }
 }
 
