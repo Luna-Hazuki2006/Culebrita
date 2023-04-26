@@ -135,12 +135,14 @@ function juego() {
     let celda = document.getElementById(culebra.cabeza)
     if (celda) {
         if (celda.innerText == '🥒') {
+            let muerte = new Audio("assets/muerte.mp3")
+            muerte.play()
             alert("¡Oh no! ¡Perdiste!")
             document.removeEventListener("keydown", teclear)
             if (manzanas > mejor) {
                 mejor = manzanas
                 let racha = document.getElementById('mejor')
-                racha.innerText = 'Mejor racha de manzanas: ' + mejor
+                racha.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
             }
             return
         }
@@ -154,6 +156,8 @@ function juego() {
         }
         ubicarSerpiente()
     } else {
+        let muerte = new Audio("assets/muerte.mp3")
+        muerte.play()
         alert("¡Oh no! ¡Perdiste!")
         document.removeEventListener("keydown", teclear)
         if (manzanas > mejor) {
