@@ -51,7 +51,7 @@ function LlenarTabla() {
         for (let j = 1; j <= ancho; j++) {
             color = !color
             id = i + '-' + j
-            clase = (color) ? "verde-claro" : "verde-oscuro"
+            clase = (color) ? "agua-clara" : "agua-oscura"
             interno += '<td class="' + clase + '" id="' + id + '"></td>'
         }
         interno += '</tr>'
@@ -73,10 +73,8 @@ function darManzanas() {
         let j = random(ancho)
         let id = i + "-" + j
         let celda = document.getElementById(id)
+        if (!celda) continue
         if (celda.innerText == "🐍" || celda.innerText == '🥒') {
-            continue
-        }
-        if (!celda) {
             continue
         }
         celda.innerText = "🍎"
