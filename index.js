@@ -40,6 +40,8 @@ function LlenarTabla() {
     manzanas = 0
     let manzanar = document.getElementById("manzanas")
     manzanar.innerText = "Manzanas comidas: " + manzanas
+    let importante = document.getElementById('mejor')
+    importante.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
     let interno = ""
     let id = ""
     let clase = ""
@@ -163,7 +165,7 @@ function juego() {
         if (manzanas > mejor) {
             mejor = manzanas
             let racha = document.getElementById('mejor')
-            racha.innerText = 'Mejor racha de manzanas: ' + mejor
+            racha.innerText = 'Mejor racha de manzanas: ' + mejor + ' 🏆'
         }
     }
 }
