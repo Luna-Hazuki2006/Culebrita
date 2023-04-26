@@ -1,7 +1,13 @@
 let ancho = 17;
 let largo = 15;
 let manzanas = 0;
-let mejor = 0
+// let mejor = 0
+if (isNaN(localStorage.getItem('mejor'))) {
+    localStorage.setItem('mejor', '0')
+    console.log('lo era');
+} else {
+    console.log('no lo era');
+}
 
 let culebra = {
     cabeza: "", 
@@ -12,6 +18,14 @@ let culebra = {
 const direcciones = [
     "n", "s", "o", "e"
 ]
+
+function darMejor(nuevo) {
+    localStorage.setItem('mejor', String(nuevo))
+}
+
+function verMejor() {
+    return Number(localStorage.getItem('mejor'))
+}
 
 function teclear(evento) {
     switch (evento.code) {
@@ -41,7 +55,8 @@ function LlenarTabla() {
     let manzanar = document.getElementById("manzanas")
     manzanar.innerText = "Manzanas comidas: " + manzanas
     let importante = document.getElementById('mejor')
-    importante.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
+    // importante.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
+    importante.innerText = 'Mejor racha de manzanas: ' + verMejor() + " 🏆"
     let interno = ""
     let id = ""
     let clase = ""
@@ -139,10 +154,13 @@ function juego() {
             muerte.play()
             alert("¡Oh no! ¡Perdiste!")
             document.removeEventListener("keydown", teclear)
-            if (manzanas > mejor) {
-                mejor = manzanas
+            // if (manzanas > mejor) {
+                // mejor = manzanas
+            if (manzanas > verMejor()) {
+                darMejor(manzanas)
                 let racha = document.getElementById('mejor')
-                racha.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
+                // racha.innerText = 'Mejor racha de manzanas: ' + mejor + " 🏆"
+                racha.innerText = 'Mejor racha de manzanas: ' + verMejor() + " 🏆"
             }
             return
         }
@@ -160,10 +178,13 @@ function juego() {
         muerte.play()
         alert("¡Oh no! ¡Perdiste!")
         document.removeEventListener("keydown", teclear)
-        if (manzanas > mejor) {
-            mejor = manzanas
+        // if (manzanas > mejor) {
+            // mejor = manzanas
+        if (manzanas > verMejor()) {
+            darMejor(manzanas)
             let racha = document.getElementById('mejor')
-            racha.innerText = 'Mejor racha de manzanas: ' + mejor + ' 🏆'
+            // racha.innerText = 'Mejor racha de manzanas: ' + mejor + ' 🏆'
+            racha.innerText = 'Mejor racha de manzanas: ' + verMejor() + ' 🏆'
         }
     }
 }
